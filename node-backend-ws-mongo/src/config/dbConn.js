@@ -1,6 +1,7 @@
+require('dotenv').config();
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:27017/test`)
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.MONGO_CONN}/test`)
 
 
 const top_100_Schema = new Schema({}, {strict : false})

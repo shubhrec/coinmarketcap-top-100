@@ -1,5 +1,5 @@
-const top_100_collection = require("./config-db/dbConn")
-const axios = require("./config-axios/configAxios")
+const top_100_collection = require("./config/dbConn")
+const axios = require("./config/configAxios")
 const CRYPTO_LIST_SIZE = "100"
 
 
@@ -42,6 +42,4 @@ const main = async () =>{
 }
 
 
-setInterval(()=>{
-    main()
-},30000)
+setInterval(main,process.env.DATA_REFRESH_INTERVAL_MS)

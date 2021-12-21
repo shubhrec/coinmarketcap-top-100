@@ -1,0 +1,20 @@
+#grid-table{
+    margin-top:150px;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+#top-toolbar{
+    box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
+    background-color: #333;
+}
+
+#app-header{
+    font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.gui-structure{
+    background:black !important;
+}

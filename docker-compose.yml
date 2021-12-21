@@ -1,4 +1,4 @@
-# Use root/example as user/password credentials
+
 version: '3.3'
 
 services:
@@ -6,9 +6,8 @@ services:
   mongo:
     image: mongo
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    env_file:
+      - .env-mongo
     ports:
       - 27017:27017  
     volumes:
@@ -19,7 +18,39 @@ services:
     restart: always
     ports:
       - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    env_file:
+      - .env
+
+  node-coinmarketcap-mongo:
+    build: ./node-coinmarketcap-mongo
+    image: node-coinmarketcap-mongo
+    restart: always
+    depends_on:
+      - mongo-express
+    env_file:
+      - .env
+  
+  node-backend-ws-mongo:
+    build: ./node-backend-ws-mongo
+    image: node-backend-ws-mongo
+    restart: always
+    depends_on:
+      - node-coinmarketcap-mongo
+    env_file:
+      - .env
+    ports:
+      - 5500:5500
+
+  angular-frontend:
+    build: ./angular-frontend
+    image: angular-frontend
+    restart: always
+    depends_on:
+      - node-backend-ws-mongo
+    env_file:
+      - .env
+    ports:
+      - 8090:80    
+
+      
+
