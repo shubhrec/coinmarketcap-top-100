@@ -52,16 +52,16 @@ For debugging purposes
 1. Create a file named .env in the repository and set the below environment variables
 
 ```bash
-MONGO_INITDB_ROOT_USERNAME="root"
-MONGO_INITDB_ROOT_PASSWORD="example"
-ME_CONFIG_MONGODB_ADMINUSERNAME="root"
-ME_CONFIG_MONGODB_ADMINPASSWORD="example"
-ME_CONFIG_MONGODB_URL="mongodb://root:example@mongo:27017/"
-DB_USER="genericuser"
-DB_PASSWORD="somePassword"
+MONGO_INITDB_ROOT_USERNAME=root
+MONGO_INITDB_ROOT_PASSWORD=example
+ME_CONFIG_MONGODB_ADMINUSERNAME=root
+ME_CONFIG_MONGODB_ADMINPASSWORD=example
+ME_CONFIG_MONGODB_URL=mongodb://root:example@mongo:27017/
+DB_USER=genericuser
+DB_PASSWORD=somePassword
 CMC_API_KEY=<your api key here>
-MONGO_CONN="mongo:27017"
-DATA_REFRESH_INTERVAL_MS="300000"
+MONGO_CONN=mongo:27017
+DATA_REFRESH_INTERVAL_MS=300000
 ```
 
 2. Run the below command
