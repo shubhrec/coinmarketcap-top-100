@@ -7,7 +7,7 @@ This solution uses a docker-compose file to spin up the containers and facilitat
 
 </br>
 
-<img src=".static-content/diagram.png">
+<img src=".Diagram.png">
 
 ## Containers
 </br>
