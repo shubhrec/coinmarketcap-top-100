@@ -11,26 +11,31 @@ This solution uses a docker-compose file to spin up the containers and facilitat
 </br>
 </br>
 
+### Mongo
+Stores the crypto listing. Data persistance can be configured by making use of volumes. However the container is not persisting any data in this setup.
+
+</br>
+</br>
+
 ### node-coinmarketcap-mongo
 
-fetches the listing from coinmarketcap and pushes it to mongo db.
+Fetches the listing from coinmarketcap and pushes it to mongo db.
 </br>
 </br>
+
 ### node-backend-ws-mongo
 
-fetches the data from the mongo instance and communicates to the frontend over ws.
+Fetches the data from the mongo instance and communicates to the frontend over ws.
 </br>
 </br>
+
 ### angular-frontend + nginx
 
 The frontend is exposed on port:8090 . nginx serves as the web server and also as a reverse proxy for the ws connection.
 </br>
 </br>
-### Mongo
-Stores the crypto listing. Because of the nature of the data, data isn't persisted over restarts. This isn't ideal for Production systems ofcourse.
 
-</br>
-</br>
+
 
 ### Mongo Express
 
@@ -62,7 +67,7 @@ DATA_REFRESH_INTERVAL_MS="300000"
 2. Run the below command
 
 ```bash
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 3. The application will start on http://localhost:8090
