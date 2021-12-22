@@ -17,21 +17,18 @@ const io = new Server(server,{
   });
 var globalCryptoData =[] // This always has the crypto data from the last refresh. This is only used when a new client connects
 
-//When clients connect
+//When clients connect. Send them a copy of the Crypto data from the global store
 io.on('connection', (socket) => {
     console.log('connected')
-    // console.log(globalCryptoData)
     socket.emit('data_refresh', {data : [...globalCryptoData], columns : columnsInOrder})
   });
 
 
-app.get('/',(req,res)=>{
-    res.send('hello')
-})
-
-
 const main = async ()=>{
     let cryptoData = (await refreshDataFromDatabase())
+
+    //This is not ideal and blocks the main thread for a short period of time.
+    //Ideally operations like these should be performed in a worker thread.
     let formattedCryptoData = cryptoData.map((cryptoElement)=>{
       return { "#" : cryptoElement.cmc_rank , 
         "Name" : cryptoElement.name , 
@@ -47,11 +44,13 @@ const main = async ()=>{
     })
 
     globalCryptoData = formattedCryptoData
-    // console.log(formattedCryptoData)
+  
     io.sockets.emit('data_refresh', {data : [...formattedCryptoData] , 
       columns : columnsInOrder})
 }
 
+
+/****************************************************************** */
 main()
 setInterval(main ,process.env.DATA_REFRESH_INTERVAL_MS)
 

@@ -42,4 +42,5 @@ const main = async () =>{
 }
 
 
+main()
 setInterval(main,process.env.DATA_REFRESH_INTERVAL_MS)

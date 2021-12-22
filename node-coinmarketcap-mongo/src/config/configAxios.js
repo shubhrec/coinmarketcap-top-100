@@ -1,3 +1,6 @@
+// Sets some defaults for axios
+
+
 const axios = require("axios")
 
 axios.defaults.headers.get['X-CMC_PRO_API_KEY'] = process.env.CMC_API_KEY
