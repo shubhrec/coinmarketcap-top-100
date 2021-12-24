@@ -16,7 +16,7 @@ export class SocketioService {
 
   //setup the socket connection and return a observable
   setupSocketConnection() {
-    this.socket = io('http://localhost:5500', { path :environment.SOCKET_ENDPOINT});
+    this.socket = io('', { path :environment.SOCKET_ENDPOINT});
     return new Observable(observer => {
       this.socket.on('data_refresh', msg => {
         observer.next(msg);

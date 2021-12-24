@@ -1,4 +1,5 @@
-const top_100_collection = require("./config/dbConn")
+const dbInitialize = require("./config/dbConn")
+var top_100_collection;
 const axios = require("./config/configAxios")
 const CRYPTO_LIST_SIZE = "100"
 
@@ -20,10 +21,15 @@ const fetchCryptoPrices = async ()=>{
 }
 
 const updateMongo = async (data) => { 
+    if(!top_100_collection) {
+        top_100_collection = await dbInitialize()
+        console.log('entered')
+    
+    }
     await top_100_collection.deleteMany({})
     top_100_collection.insertMany(data,(err)=>{
         if(err){
-            console.log('there was an error')
+            console.error(err.message)
         }
         else{
             console.log('successfully inserted')
@@ -36,8 +42,15 @@ const updateMongo = async (data) => {
 
 
 const main = async () =>{
-    const result = await fetchCryptoPrices()
-    await updateMongo(result)
+
+    try{
+        const result = await fetchCryptoPrices()
+        await updateMongo(result)
+    }
+    catch(error){
+        console.error(error.message)
+    }
+
 
 }
 
