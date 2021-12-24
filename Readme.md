@@ -13,25 +13,25 @@ This solution uses a docker-compose file to spin up the containers and facilitat
 </br>
 </br>
 
-### Mongo
+### 1. Mongo
 Stores the crypto listing. Data persistance can be configured by making use of volumes. However the container is not persisting any data in this setup.
 
 </br>
 </br>
 
-### node-coinmarketcap-mongo
+### 2. node-coinmarketcap-mongo
 
 Fetches the listing from coinmarketcap and pushes it to mongo db.
 </br>
 </br>
 
-### node-backend-ws-mongo
+### 3. node-backend-ws-mongo
 
 Fetches the data from the mongo instance and communicates to the frontend over ws.
 </br>
 </br>
 
-### angular-frontend + nginx
+### 4. angular-frontend + nginx
 
 The frontend is exposed on port:8090 . nginx serves as the web server and also as a reverse proxy for the ws connection.
 </br>
@@ -39,7 +39,7 @@ The frontend is exposed on port:8090 . nginx serves as the web server and also a
 
 
 
-### Mongo Express
+### 5. Mongo Express
 
 For debugging purposes
 
@@ -73,3 +73,17 @@ docker-compose up --build -d
 ```
 
 3. The application will start on http://localhost:8090
+
+</br>
+
+## Known Issues and fixes
+</br>
+
+1. The node-backend-ws-mongo would sometimes run before the mongo collection is updated. In order to avoid this, if the backend encounters the collection to be empty, it exits the program. Docker automatically restarts the program and this gives the node-coinmarketcap-mongo service enough time to do it's first update.
+
+2. The frontend has a lot of scope of improvement . Perhaps sorting and filtering on the columns. Can also use a better data grid library. The current frontend is minimal. 
+
+3. Mongo comes with an out of the box solution to watch out for changes in a collection called change streams. This however works only on either replica set or sharded clusters. It'd be cool to do this with change streams but creating a sharded cluster would be bit of an overkill on a single node mongo instance.
+
+
+4. The mongo container doesn't have any volume mounted which means that data is not persisted anywhere. This is a conscious choice made because of the nature of the data.
